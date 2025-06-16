@@ -4,7 +4,7 @@ import { storageService } from './async-storage.service.js'
 const BOOK_KEY = 'books'
 _createBooks()
 
-export const carService = {
+export const bookService = {
     query,
     get,
     remove,
@@ -15,15 +15,20 @@ export const carService = {
 
 function query(filterBy = {}) {
     return storageService.query(BOOK_KEY)
-        .then(cars => {
+        .then(books => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                cars = cars.filter(car => regExp.test(car.vendor))
+                books = books.filter(book => regExp.test(book.title))
             }
-            if (filterBy.minSpeed) {
-                cars = cars.filter(car => car.speed >= filterBy.minSpeed)
+            if (filterBy.maxPrice) {
+                books = books.filter(book => {
+                   return book.listPrice.amount <= filterBy.maxPrice
+                    console.log(book.listPrice.amount);
+                    
+
+                }) 
             }
-            return cars
+            return books
         })
 }
 
@@ -36,20 +41,20 @@ function remove(carId) {
     return storageService.remove(BOOK_KEY, carId)
 }
 
-function save(car) {
-    if (car.id) {
+function save(book) {
+    if (book.id) {
         return storageService.put(BOOK_KEY, car)
     } else {
         return storageService.post(BOOK_KEY, car)
     }
 }
 
-function getEmptyCar(vendor = '', speed = '') {
-    return { vendor, speed }
+function getEmptyCar(book = '', price = '') {
+    return { book, price }
 }
 
 function getDefaultFilter() {
-    return { txt: '', minSpeed: '' }
+    return { txt: '', maxPrice: '' }
 }
 
 function _createBooks() { 

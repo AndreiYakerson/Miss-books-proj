@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 
-export function CarFilter({ defaultFilter, onSetFilter }) {
+export function BookFilter({ defaultFilter, onSetFilter }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...defaultFilter })
 
@@ -9,6 +9,7 @@ export function CarFilter({ defaultFilter, onSetFilter }) {
     }, [filterByToEdit])
 
     function handleChange({ target }) {
+        
         const field = target.name
         let value = target.value
         switch (target.type) {
@@ -24,29 +25,29 @@ export function CarFilter({ defaultFilter, onSetFilter }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
-    /* 
-     function handleTxtChange({ target }) {
-         const value = target.value
-         setFilterByToEdit(prevFilter => ({...prevFilter, txt: value}))
-     }
- 
-     function handleMinSpeedChange({ target }) {
-         const value = target.value
-         setFilterByToEdit(prevFilter => ({...prevFilter, minSpeed: +value}))
-     }
-    */
 
-    const { txt, minSpeed } = filterByToEdit
+    //  function handleTxtChange({ target }) {
+    //      const value = target.value
+    //      setFilterByToEdit(prevFilter => ({...prevFilter, txt: value}))
+    //  }
+ 
+    //  function handleMinSpeedChange({ target }) {
+    //      const value = target.value
+    //      setFilterByToEdit(prevFilter => ({...prevFilter, minSpeed: +value}))
+    //  }
+
+
+    const { txt, maxPrice } = filterByToEdit
     return (
         <section className="car-filter container">
-            <h2>Filter Our Cars</h2>
+            <h2>Filter Our Books</h2>
 
             <form>
-                <label htmlFor="txt">Vendor</label>
+                <label htmlFor="txt">Book</label>
                 <input onChange={handleChange} value={txt} name="txt" id="txt" type="text" />
 
-                <label htmlFor="minSpeed">Min Speed</label>
-                <input onChange={handleChange} value={minSpeed || ''} name="minSpeed" id="minSpeed" type="number" />
+                <label htmlFor="maxPrice">Max price</label>
+                <input onChange={handleChange} value={maxPrice || ''} name="maxPrice" id="maxPrice" type="number" />
             </form>
         </section>
     )

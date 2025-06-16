@@ -3,8 +3,7 @@ export function Home() {
 
     return (
         <section className="home container">
-            <h1 >Car's R Us!</h1>
-            <img src="../assets/img/react.png" alt="hero-image" />
+            <h1 >Welcome to Miss Books!</h1>
         </section>
     )
 }

@@ -3,11 +3,11 @@ const { useState } = React
 import { AppHeader } from "./cmps/AppHeader.jsx"
 import { About } from "./pages/About.jsx"
 import { Home } from "./pages/Home.jsx"
-import { CarIndex } from "./pages/CarIndex.jsx"
+import { BookIndex } from "./pages/BookIndex.jsx"
 
 export function RootCmp() {
 
-    const [page, setPage] = useState('car')
+    const [page, setPage] = useState('book')
 
     return (
         <section className="app">
@@ -16,7 +16,7 @@ export function RootCmp() {
             <main>
                 {page === 'home' && <Home />}
                 {page === 'about' && <About />}
-                {page === 'car' && <CarIndex />}
+                {page === 'book' && <BookIndex />}
             </main>
         </section>
     )

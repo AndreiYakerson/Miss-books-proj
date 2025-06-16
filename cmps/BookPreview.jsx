@@ -1,8 +1,6 @@
-export function CarPreview({ car }) {
+export function BookPreview({ book }) {
 
-
-
-    const { title , thumbnail} = car
+    const { title , thumbnail} = book
     return (
         <article className="car-preview">
             <h2>Title: {title}</h2>
