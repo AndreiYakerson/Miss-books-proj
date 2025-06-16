@@ -18,18 +18,21 @@ export function BookDetails({ bookId, onBack }) {
             })
     }
 
+    function getPriceClass(amount) {
+        return amount > 200 ? 'red' : 'green'
+    }
+
     if (!book) return <div>Loading...</div>
 
-    const { title, description, thumbnail  } = book
+    const { title, description, thumbnail, listPrice  } = book
 
     return (
-        <section className="car-details container">
+        <section className="book-details container">
             <h1>Title: {title}</h1>
             <h1>Description: </h1>
-            <p>
-            {description}
-            </p>
+            <p>{description}</p>
             <img src={thumbnail} alt="Book Image" />
+            <p>Price: <span className={getPriceClass(listPrice.amount)}>{listPrice.amount}</span></p>
             <button onClick={onBack}>Back</button>
         </section>
     )
