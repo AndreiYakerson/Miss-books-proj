@@ -39,7 +39,7 @@ export function BookFilter({ defaultFilter, onSetFilter }) {
 
     const { txt, maxPrice } = filterByToEdit
     return (
-        <section className="car-filter container">
+        <section className="book-filter container">
             <h2>Filter Our Books</h2>
 
             <form>
