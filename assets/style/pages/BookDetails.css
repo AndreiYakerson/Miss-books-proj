@@ -12,7 +12,22 @@
     color: var(--clr2);
 }
 .book-details img {
+    position: relative;
     max-width: 200px;
     display: block;
+}
+
+.book-details .thumbnail {
     margin: auto;
+}
+
+
+.book-details .on-sale {
+    position: absolute;
+    translate: 150px -25px;
+    rotate: -45deg;
+
+    padding-inline: 10px;
+    background-color: yellow;
+    
 }

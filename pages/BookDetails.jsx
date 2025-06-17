@@ -31,14 +31,14 @@ export function BookDetails({ bookId, onBack }) {
     function getPublishedDate(publishedDate) {
         const yearDiff = new Date().getFullYear() - publishedDate
         console.log(yearDiff);
-        
-        
+
+
         return yearDiff > 20 ? 'Vintage' : 'New'
     }
 
     if (!book) return <div>Loading...</div>
 
-    const { title, description, thumbnail, listPrice, pageCount, publishedDate  } = book
+    const { title, description, thumbnail, listPrice, pageCount, publishedDate } = book
 
     return (
         <section className="book-details container">
@@ -46,7 +46,10 @@ export function BookDetails({ bookId, onBack }) {
             <h1>Description: </h1>
             <p>{description}</p>
             <p>Page count: {pageCount} ({getReading(pageCount)})</p>
-            <img src={thumbnail} alt="Book Image" />
+            <div className="thumbnail">
+                <img src={thumbnail} alt="Book Image" />
+                {listPrice.isOnSale && <div className="on-sale">On Sale</div>}
+            </div>
             <p>Price: <span className={getPriceClass(listPrice.amount)}>{listPrice.amount}</span></p>
             <p>Published: {getPublishedDate(publishedDate)}</p>
             <button onClick={onBack}>Back</button>
