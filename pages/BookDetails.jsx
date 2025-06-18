@@ -1,4 +1,5 @@
 import { bookService } from "../services/book.service.js"
+import { LongText } from "../cmps/LongText.jsx"
 
 const { useState, useEffect } = React
 
@@ -44,7 +45,9 @@ export function BookDetails({ bookId, onBack }) {
         <section className="book-details container">
             <h1>Title: {title}</h1>
             <h1>Description: </h1>
-            <p>{description}</p>
+            <LongText
+                txt={description}
+                maxLength={50} />
             <p>Page count: {pageCount} ({getReading(pageCount)})</p>
             <div className="thumbnail">
                 <img src={thumbnail} alt="Book Image" />
