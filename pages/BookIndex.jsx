@@ -33,8 +33,6 @@ export function BookIndex() {
     }
 
     function onSetFilter(filterBy) { // ex: {txt:'asd'}
-        console.log(filterBy);
-        
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
     }
 
