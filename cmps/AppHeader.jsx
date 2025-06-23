@@ -8,7 +8,7 @@ export function AppHeader() {
             <section>
                 <h1>Miss Book App</h1>
                 <nav className="app-nav">
-                    <NavLink to="/" >Home</NavLink>
+                    <NavLink to="/home" >Home</NavLink>
                     <NavLink to="/about" >About</NavLink>
                     <NavLink to="/books" >Books</NavLink>
                 </nav>
