@@ -1,11 +1,16 @@
 import { bookService } from "../services/book.service.js"
 import { LongText } from "../cmps/LongText.jsx"
 
+const { useParams, Link } = ReactRouterDOM
 const { useState, useEffect } = React
 
-export function BookDetails({ bookId, onBack }) {
+export function BookDetails({ onBack }) {
 
     const [book, setBook] = useState(null)
+    const {bookId} = useParams()
+
+
+
 
     useEffect(() => {
         loadCar()
@@ -55,7 +60,7 @@ export function BookDetails({ bookId, onBack }) {
             </div>
             <p>Price: <span className={getPriceClass(listPrice.amount)}>{listPrice.amount}</span></p>
             <p>Published: {getPublishedDate(publishedDate)}</p>
-            <button onClick={onBack}>Back</button>
+            <Link to="/books"><button>Back</button></Link>
         </section>
     )
 }
