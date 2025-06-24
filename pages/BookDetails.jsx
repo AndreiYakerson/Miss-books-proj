@@ -41,22 +41,22 @@ export function BookDetails({ onBack }) {
 
     if (!book) return <div>Loading...</div>
 
-    const { title, description, thumbnail, listPrice, pageCount, publishedDate } = book
+    const { title, description, thumbnail, listPrice, pageCount, publishedDate, price } = book
 
     return (
         <section className="book-details container">
-            <h1>Title: {title}</h1>
-            <h1>Description: </h1>
-            <LongText
+            {title && <h1>Title: {title}</h1>}
+            {description && <h1>Description: </h1>}
+            {description && <LongText
                 txt={description}
-                maxLength={50} />
-            <p>Page count: {pageCount} ({getReading(pageCount)})</p>
-            <div className="thumbnail">
+                maxLength={50} />}
+            {pageCount && <p>Page count: {pageCount} ({getReading(pageCount)})</p>}
+            {thumbnail && <div className="thumbnail">
                 <img src={thumbnail} alt="Book Image" />
                 {listPrice.isOnSale && <div className="on-sale">On Sale</div>}
-            </div>
-            <p>Price: <span className={getPriceClass(listPrice.amount)}>{listPrice.amount}</span></p>
-            <p>Published: {getPublishedDate(publishedDate)}</p>
+            </div>}
+            {listPrice && <p>Price: <span className={getPriceClass(price)}>{listPrice.amount}</span></p>}
+            {publishedDate && <p>Published: {getPublishedDate(publishedDate)}</p>}
             <Link to="/books"><button>Back</button></Link>
         </section>
     )
