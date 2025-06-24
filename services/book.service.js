@@ -9,7 +9,7 @@ export const bookService = {
     get,
     remove,
     save,
-    getEmptyCar,
+    getEmptyBook,
     getDefaultFilter
 }
 
@@ -43,14 +43,14 @@ function remove(carId) {
 
 function save(book) {
     if (book.id) {
-        return storageService.put(BOOK_KEY, car)
+        return storageService.put(BOOK_KEY, book)
     } else {
-        return storageService.post(BOOK_KEY, car)
+        return storageService.post(BOOK_KEY, book)
     }
 }
 
-function getEmptyCar(book = '', price = '') {
-    return { book, price }
+function getEmptyBook(title = '', price = '') {
+    return { title, price }
 }
 
 function getDefaultFilter() {
