@@ -9,9 +9,6 @@ export function BookDetails({ onBack }) {
     const [book, setBook] = useState(null)
     const {bookId} = useParams()
 
-
-
-
     useEffect(() => {
         loadCar()
     }, [])
