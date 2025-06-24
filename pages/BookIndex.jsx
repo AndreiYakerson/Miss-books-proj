@@ -4,6 +4,7 @@ import { bookService } from "../services/book.service.js"
 import { BookDetails } from "./BookDetails.jsx"
 
 const { useState, useEffect, Fragment } = React
+const { Link } = ReactRouterDOM
 
 export function BookIndex() {
     
@@ -43,19 +44,17 @@ export function BookIndex() {
     if (!books) return <div>Loading...</div>
   
     return (
-        <section className="car-index">
-            {selectedBookId &&
-                <BookDetails
-                    bookId={selectedBookId}
-                    onBack={() => setSelectedBookId(null)}
-                />
-            }
+
+        <section className="book-index">
             {!selectedBookId &&
                 <Fragment>
                     <BookFilter
                         defaultFilter={filterBy}
                         onSetFilter={onSetFilter}
-                    />
+                        />
+
+                        <Link to="/books/edit"><button>Add</button></Link>
+
                     <BookList
                         books={books}
                         onRemoveBook={onRemoveBook}
