@@ -2,26 +2,53 @@
 import { bookService } from "../services/book.service.js"
 const {useState, useEffect} = React
 const { useNavigate } = ReactRouterDOM
+const { useParams, Link } = ReactRouterDOM
 
 
 export function BookEdit() {
+    const { bookId } = useParams()
 
     const [ bookToEdit, setBookToEdit ] = useState(bookService.getEmptyBook()) 
+    console.log('bookToEdit:', bookToEdit);
+    
     const navigate = useNavigate()
 
+
+    useEffect(() => {
+        editBook()
+    }
+    , [bookId])
 
     function onSaveBook(ev) {
         ev.preventDefault()
         bookService.save(bookToEdit)
-        .then(() => navigate('/books'))
+        .then(() => {
+            navigate('/books')
+            console.log(bookToEdit);
+            
+
+        })
         .catch(console.log)
         console.log(bookToEdit);
         
     }
 
+    function editBook() {
+        if (bookId) {
+            bookService.get(bookId)
+                .then(book => {
+                    setBookToEdit(book)
+                })
+                .catch(err => {
+                    console.log('err:', err)
+                })
+        }
+    }
+
     function handleChange({ target }) {
         
         const field = target.name
+        
         let value = target.value
         switch (target.type) {
             case 'number':
@@ -33,7 +60,10 @@ export function BookEdit() {
                 value = target.checked
                 break
         }
-        setBookToEdit(prevBook => ({ ...prevBook, [field]: value }))
+        console.log(field);
+        
+        setBookToEdit(prevBook => ({ ...prevBook, [field]: value, listPrice: { amount: value, currencyCode: 'USD' } }))
+        
     }
 
 
