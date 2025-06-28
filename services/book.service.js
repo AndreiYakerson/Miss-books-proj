@@ -44,6 +44,8 @@ function remove(carId) {
 
 function save(book) {
     if (book.id) {
+        console.log('YES');
+        
         return storageService.put(BOOK_KEY, book)
     } else {
         return storageService.post(BOOK_KEY, book)
@@ -51,7 +53,28 @@ function save(book) {
 }
 
 function getEmptyBook(title = '', price = '') {
-    return { title, price }
+    return { 
+        id: '', 
+        title: '', 
+        subtitle: '',
+        rateBy: {
+            rateBySelect: '',
+            rateByStars: '',
+            rateByTextBox: ''
+        }, 
+        authors: [], 
+        publishedDate: '', 
+        description: '', 
+        pageCount: '', 
+        categories: '', 
+        thumbnail: `assets/img/${utilService.getRandomIntInclusive(1, 20)}.jpg`, 
+        language: '', 
+        listPrice: { 
+            amount: '', 
+            currencyCode: '', 
+            isOnSale: '' 
+        }
+    }
 }
 
 function getDefaultFilter() {
@@ -65,7 +88,13 @@ function _createBooks() {
         const book = { 
             id: utilService.makeId(), 
             title: utilService.makeLorem(2), 
-            subtitle: utilService.makeLorem(4), 
+            subtitle: utilService.makeLorem(4),
+            
+            rateBy: {
+                rateBySelect: utilService.getRandomIntInclusive(1, 5),
+                rateByStars: utilService.getRandomIntInclusive(1, 5),
+                rateByTextBox: utilService.makeLorem(10)
+            }, 
             authors: [ 
                 utilService.makeLorem(1) 
             ], 

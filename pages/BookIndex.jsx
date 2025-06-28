@@ -49,7 +49,7 @@ export function BookIndex() {
     return (
 
         <section className="book-index">
-            {!selectedBookId &&
+
                 <Fragment>
                     <BookFilter
                         defaultFilter={filterBy}
@@ -64,7 +64,7 @@ export function BookIndex() {
                         onSelectBookId={onSelectBookId}
                     />
                 </Fragment>
-            }
+                
         </section>
     )
 

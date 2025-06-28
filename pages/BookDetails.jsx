@@ -1,5 +1,7 @@
 import { bookService } from "../services/book.service.js"
 import { LongText } from "../cmps/LongText.jsx"
+import { DynamicRateCmp } from "../cmps/RateBy.jsx"
+
 
 const { useParams, Link } = ReactRouterDOM
 const { useState, useEffect } = React
@@ -7,13 +9,17 @@ const { useState, useEffect } = React
 export function BookDetails({ onBack }) {
 
     const [book, setBook] = useState(null)
-    const {bookId} = useParams()
+    const [rateBy, setRateBy] = useState('rateBySelect')
+    const [rateValue, setRateValue] = useState(1)
+
+    const { bookId } = useParams()
 
     useEffect(() => {
-        loadCar()
-    }, [])
+        loadBook()
+    }, [rateBy, rateValue])
 
-    function loadCar() {
+
+    function loadBook() {
         bookService.get(bookId)
             .then(setBook)
             .catch(err => {
@@ -33,11 +39,30 @@ export function BookDetails({ onBack }) {
 
     function getPublishedDate(publishedDate) {
         const yearDiff = new Date().getFullYear() - publishedDate
-        console.log(yearDiff);
-
-
         return yearDiff > 20 ? 'Vintage' : 'New'
     }
+
+    function handleRateChange(event) {
+        setRateBy(event.target.value);
+        // Update state with the selected value
+    }
+
+    function changeRateValue(value) {
+        setRateValue(value);
+    }
+
+    function onSaveRate(ev, book, rateBy, rateValue) {
+        ev.preventDefault()
+
+        if (rateBy === 'rateBySelect') book.rateBy[rateBy] = rateValue
+        bookService.save(book)
+            .then(loadBook)
+            .catch(console.log)
+            console.log(book);
+            
+    }
+
+
 
     if (!book) return <div>Loading...</div>
 
@@ -55,8 +80,24 @@ export function BookDetails({ onBack }) {
                 <img src={thumbnail} alt="Book Image" />
                 {listPrice.isOnSale && <div className="on-sale">On Sale</div>}
             </div>}
-            {listPrice && <p>Price: <span className={getPriceClass(price)}>{listPrice.amount}</span></p>}
+            {listPrice && <p>Price: <span className={getPriceClass(price)}>{`${listPrice.amount} ${listPrice.currencyCode}`}</span></p>}
+            {<p>Rate: {book.rateBy.rateBySelect || book.rateBy.rateByStars || book.rateBy.rateByTextBox}</p>}
             {publishedDate && <p>Published: {getPublishedDate(publishedDate)}</p>}
+
+            <div className="rate-container">
+                <select name="rate-by" onChange={handleRateChange}>
+                    <option value="rateBySelect">By Select</option>
+                    <option value="rateByStars">By Stars</option>
+                    <option value="rateByTextBox">By Text</option>
+                </select>
+
+                <form action="submit" onSubmit={(ev) => onSaveRate(ev, book, rateBy, rateValue)}>
+                    <DynamicRateCmp cmpType={rateBy} callBack={changeRateValue} book={book} />
+                    <button>Save</button>
+                </form>
+
+            </div>
+
             <Link to="/books"><button>Back</button></Link>
         </section>
     )
