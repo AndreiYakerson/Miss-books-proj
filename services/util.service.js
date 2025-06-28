@@ -34,3 +34,12 @@ export function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
 }
+
+export function getTruthyValues(obj) {
+    const trueObj = {}
+    for (const key in obj) {
+        const value = obj[key]
+        if (value) trueObj[key] = value
+    }
+    return trueObj
+}

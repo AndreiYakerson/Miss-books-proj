@@ -10,7 +10,8 @@ export const bookService = {
     remove,
     save,
     getEmptyBook,
-    getDefaultFilter
+    getDefaultFilter,
+    getFilterFromSearchParams
 }
 
 function query(filterBy = {}) {
@@ -84,4 +85,14 @@ function _createBooks() {
     } 
     console.log('books', books) 
     saveToStorage(BOOK_KEY, books)
+}
+
+function getFilterFromSearchParams(searchParams) {
+    const txt = searchParams.get('txt') || ''
+    const maxPrice = searchParams.get('maxPrice') || ''
+  
+    return {
+        txt,
+        maxPrice
+    }
 }
