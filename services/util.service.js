@@ -35,6 +35,17 @@ export function loadFromStorage(key) {
     return (data) ? JSON.parse(data) : undefined
 }
 
+
+export function debounce(func, delay) {
+    let timeoutId
+    return (...args) => {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            func(...args)
+        }, delay)
+    }
+}
+
 export function getTruthyValues(obj) {
     const trueObj = {}
     for (const key in obj) {
